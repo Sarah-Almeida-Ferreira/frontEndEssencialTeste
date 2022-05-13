@@ -1,61 +1,50 @@
 window.onload = function () {
-    carregarPagina();
+    fetchApiData();
 }
 
-function carregarPagina() {
+function fetchApiData() {
     fetch('https://randomuser.me/api/?results=5')
-        .then(dadosClientes => dadosClientes.json())
-        .then(dadosClientes => dadosClientes.results)
-        .then(dadosClientes => construirCards(dadosClientes))
+        .then(response => response.json())
+        .then(data => {
+            data.results.forEach((pessoa) => {
+                const divContainer = document.createElement('div');
+                divContainer.className = 'col';
+                divContainer.innerHTML =
+                    `
+            <div class="card h-100 d-flex flex-column">
+                <img src="${pessoa.picture.large}"
+                class="card-img-top"
+                alt= "imagem de pessoa capturada pela API"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">${pessoa.name.first + ' ' + pessoa.name.last} </h5>
+                    <p> Fuso: ${pessoa.location.timezone.description}</p>
+                    <p> Contato: ${pessoa.phone}</p> 
+                    <p> Cidade: ${pessoa.location.city} </p>
+                    <p> Estado: ${pessoa.location.state} </p>
+                    <p> País: ${pessoa.location.country} </p>
+                </div>
+                <a class="link" href="clientes.html" target="_blank">
+                <button class="btn btn1">Clientes</button> </a>
+            </div>
+        
+        `;
+                document.getElementById('cardsAqui').appendChild(divContainer);
+            });
+        });
 }
 
-function construirCards(clientes) {
-    console.log(clientes);
-    const divContainer = document.createElement('div');
-    divContainer.className = 'row row-cols-12 row-cols-sm-12 row-cols-md-6 g-lg-6 container-fluid';
-    
-    for (i = 0; i < 5; i++) {
-    const divColunas = document.createElement('div');
-    const divHeightCard = document.createElement('div');
-    const img = document.createElement('img');
-    const divCardBody = document.createElement('div');
-    const nameTitle = document.createElement('h5');
-    const timeZoneDescription = document.createElement('p');
-    const phone = document.createElement('p');
-    const endereco = document.createElement('p');
-    const link = document.createElement('a');
-    const botaoEnviar = document.createElement('button');
+function mudaTema() {
+    document.body.classList.toggle("dark");
+    mudaTextoBotaoTema();
+}
 
-    // divColunas.className = 'col';
-    divHeightCard.className = 'card h-100 w-100 d-flex flex-column';
-    divCardBody.className = 'card-body';
-    nameTitle.className = 'card-title';
-    img.className = 'card-img-top';
-    botaoEnviar.className = 'btn btn1';
-    link.className = 'link';
-
-    link.href = 'clientes.html';
-    link.setAttribute('target', '_blank');
-    
-    
-    img.src = clientes[i].picture.large;
-    timeZoneDescription.innerHTML = clientes[i].location.timezone.description;
-    nameTitle.innerHTML = clientes[i].name.first + " " + clientes[i].name.last;
-    botaoEnviar.innerHTML = `Clientes `;
-    // phone.innerHTML = `Telefone: ` + clientes[i].phone;
-    // endereco.innerHTML = `Cidade: ` + clientes[i].location.city + ', Estado: ' + clientes[i].location.state + ', País: ' + clientes[i].location.country;
-
-    divContainer.appendChild(divColunas);
-    divColunas.appendChild(divHeightCard);
-    divHeightCard.appendChild(img);
-    divHeightCard.appendChild(divCardBody);
-    divCardBody.appendChild(nameTitle);
-    divCardBody.appendChild(timeZoneDescription);
-    divCardBody.appendChild(phone);
-    divCardBody.appendChild(endereco);
-    divHeightCard.appendChild(link);
-    link.appendChild(botaoEnviar);
-
-    document.getElementById('cardsAqui').appendChild(divContainer);
+function mudaTextoBotaoTema() {
+    var textoBotaoTema = document.getElementById("button-tema");
+    if (textoBotaoTema.innerHTML === "Dark Mode") {
+        textoBotaoTema.innerHTML = "Light Mode";
+    } else {
+        textoBotaoTema.innerHTML = "Dark Mode";
+        // alert('cuidado com os bugs atraídos pela luz')
     }
 }
