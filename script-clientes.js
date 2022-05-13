@@ -21,13 +21,13 @@ barraPesquisa.onsearch = function () {
 }
 
 function carregarPagina() {
-    fetch('https://randomuser.me/api/?results=50')
+    fetch('https://randomuser.me/api/?results=100')
         .then(dadosClientes => dadosClientes.json())
         .then(dadosClientes => dadosClientes.results)
         .then(dadosClientes => {
-            listaClientes = dadosClientes;
+            listaClientes = dadosClientes
             criarTabela(listaClientes);
-        })           
+        });
 }
 
 function criarTabela (clientes) {
@@ -54,8 +54,8 @@ function criarTabela (clientes) {
 
         genero.className = 'center';
         idade.className = 'center';
+        dataCadastro.className = 'center';
         linhaTabela.className = 'linha-tabela-cliente';
-        dataCadastro.className = 'padding-esquerda-tabela';
         
         linhaTabela.setAttribute("onclick", "mostrarFichaCliente(this)");
         linhaTabela.setAttribute("id", cliente.id);
@@ -92,60 +92,4 @@ function buscar(listaClientes, textoPesquisado) {
     });
 
     return listaFiltrada;
-}
-
-function mostrarFichaCliente(clienteElement){
-    let cliente = recuperarCliente(clienteElement.id);
-
-    const imgModal = document.getElementsByClassName('imagem-modal')[0];
-    const nomeModal = document.getElementsByClassName('nome-modal')[0];
-    const fusoModal = document.getElementsByClassName('fuso-modal')[0];
-    const dataCadastroModal = document.getElementsByClassName('data-cadastro-modal')[0];
-    const emailModal = document.getElementsByClassName('email-modal')[0];
-    const celularModal = document.getElementsByClassName('celular-modal')[0];
-    const enderecoModal = document.getElementsByClassName('endereco-modal')[0];
-    const paisModal = document.getElementsByClassName('pais-modal')[0];
-
-    imgModal.src = cliente.picture.large;
-    fusoModal.innerHTML = `${cliente.location.state}, ${cliente.location.country}`;
-    dataCadastroModal.innerHTML = `Data de cadastro: ${ajustarData(cliente.registered.date)}`;
-    emailModal.innerHTML = `Email: ${cliente.email}`;
-    celularModal.innerHTML = `Celular: ${cliente.cell}`;
-    nomeModal.innerHTML = `${cliente.name.title} ${cliente.name.first} 
-                                ${cliente.name.last}, ${cliente.dob.age} anos`;
-    enderecoModal.innerHTML = `Endereço: ${cliente.location.street.name}, 
-                                nº ${cliente.location.street.number} - ${cliente.location.city}`
-
-}
-
-function recuperarCliente(id) {
-    let clienteFiltrado;
-    
-    listaClientes.forEach(cliente => {
-        if(cliente.login.uuid == id) {
-            clienteFiltrado = cliente;
-        }
-    });
-
-    return clienteFiltrado;
-}
-
-function ajustarData(data) {
-    let dataSemHora = data.split("T")[0].split("-");
-    return `${dataSemHora[2]}/${dataSemHora[1]}/${dataSemHora[0]}`;
-}
-
-function mudaTema() {
-    document.body.classList.toggle("dark");
-    mudaTextoBotaoTema();
-}
-
-function mudaTextoBotaoTema() {
-    var textoBotaoTema = document.getElementById("button-tema");
-    if (textoBotaoTema.innerHTML === "Dark Mode") {
-        textoBotaoTema.innerHTML = "Light Mode";
-    } else {
-        textoBotaoTema.innerHTML = "Dark Mode";
-        alert('cuidado com os bugs atraídos pela luz')
-    }
 }

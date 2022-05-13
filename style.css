@@ -4,8 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* font-family: 'Roboto', sans-serif; */
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 :root {
@@ -16,6 +15,7 @@
     --dark-theme-secondary: rgb(58, 57, 57);
 
     --tabela-color: #f5af26;
+    --outline-color: #f5b02684;
     --texto: hsl(273, 95%, 8%);
        
     --cardElements: hsl(0, 0%, 87%);
@@ -26,6 +26,7 @@
 
 body {
     color: var(--texto);
+    height: fit-content;
 }
 
 a,
@@ -68,17 +69,16 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position:fixed;
     background-color: var(--primary-color);
     height: 80px;
     width: 100%;
     bottom: 0;
-    
 }
 
 .background-navbar {
     background-color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     width: fit-content;
     min-width: 100%;
 }
@@ -119,8 +119,17 @@ footer {
     border: none;
 }
 
-
 .col {
+    min-width: 25rem;
+    max-width: 25rem;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    border: 2px solid var(--primary-color);
+    margin: 1rem;
+}
+
+.col-cliente {
+    max-width: 25rem;
     border-radius: 1rem;
     margin-right: 1rem;
     border: 2px solid var(--primary-color);
@@ -131,6 +140,10 @@ footer {
     border-radius: 20rem;
     margin-top: 1rem;
     width: 80%;
+}
+
+.card-body {
+    margin: 2rem 0 2rem 0;
 }
 
 .devProfiles {
@@ -204,6 +217,11 @@ footer {
     margin-top: auto;
 }
 
+.btn.btn1 {
+    vertical-align:bottom;
+    position:sticky;
+}
+
 .favIcons {
     display: inline;
     margin-bottom: 1.5rem;
@@ -226,6 +244,10 @@ footer {
 
 #gitHubIcon {
     background-color: white;
+}
+
+#cardsGrupo4 {
+    padding: 0 30rem 0 30rem;
 }
 
 #cardsGrupo4 div:nth-child(2) .devProfiles {
@@ -256,27 +278,24 @@ th {
     font-size: 2rem;
 }
 
-.padding-esquerda-tabela {
-    padding-left: 5rem !important;
-}
-
 #datatable-search-input {
     font-size: 2rem;
-    margin-top: 1rem;
-    outline-offset: none !important;
+    margin-top: 6rem;
     outline: none !important;
     width: 100%;
-    border: 1px thin hsla(0, 43%, 99%, 0);
-    padding: 0.5rem;
+    border: 1px solid hsl(275,  96%, 22%);
+    border-radius: 1rem;
+    padding: 1rem;
 }
 
 #datatable-search-input:focus {
     font-size: 2rem;
-    margin-top: 1rem;
-    outline-offset: none !important;
-    outline: none !important;
-    outline-style: none !important;
-    outline-color: #1c1c1c;
+    border: 1px;
+    border-color: var(--tabela-color);
+    outline-offset: 3px !important;
+    outline-style: solid !important;
+    outline-color: var(--outline-color) !important;
+    transition: .3s;
 }
 
 /*================= HOVER =================*/
@@ -291,7 +310,7 @@ th {
     width: 100%;
 }
 
-.col:hover {
+.col-cliente:hover {
     border-color: var(--secondary-color);
     cursor: pointer;
 }
@@ -388,6 +407,11 @@ th {
 }
 
 .dark .col {
+    border: 1px solid white;
+    padding: 0.4rem;
+}
+
+.dark .col-cliente {
     border: 1px solid white;
     padding: 0.4rem;
 }
