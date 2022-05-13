@@ -139,6 +139,6 @@ function mudaTextoBotaoTema() {
         textoBotaoTema.innerHTML = "Light Mode";
     } else {
         textoBotaoTema.innerHTML = "Dark Mode";
-        // alert('cuidado com os bugs atraídos pela luz')
+        alert('cuidado com os bugs atraídos pela luz')
     }
 }

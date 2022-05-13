@@ -113,6 +113,11 @@ p {
     border: none;
 }
 
+.col:hover {
+    border-color: var(--secondary-color);
+    cursor: pointer;
+}
+
 .col {
     border-radius: 1rem;
     margin-right: 1rem;
